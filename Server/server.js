@@ -12,14 +12,19 @@ const app = express();
 dotenv.config();
 const PORT = process.env.PORT || 5001
 
+app.use(
+    cors({
+      origin: "http://localhost:5173",
+      credentials: true,
+    })
+  );
 app.use(express.json());
-app.use(cors());
 app.use(cookieParser());
 
 
 // User Routes------
 app.use("/users", userRoutes)
-app.use("/tasks",authenticatedUser, taskRoutes)
+app.use("/tasks", authenticatedUser, taskRoutes)
 
 
 

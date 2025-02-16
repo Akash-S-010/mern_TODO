@@ -71,7 +71,7 @@ export const login = async (req, res) => {
         // Set tokens in cookies
         res.cookie("accessToken", accessToken, {
             httpOnly: true,
-            sameSite: "none",
+            sameSite: "lax",
             secure: process.env.NODE_ENV !== "development",
             maxAge: 5 * 60 * 1000
         });
@@ -95,9 +95,25 @@ export const login = async (req, res) => {
 
 // -----User logout function-------------------------
 export const logout = async (req, res) => {
-    res.clearCookie("accessToken");
-    res.clearCookie("refreshToken");
-    res.status(200).json({ message: "Logout successful" });
+    try {
+        res.clearCookie("accessToken", {
+            httpOnly: true,
+            sameSite: "lax",
+            secure: process.env.NODE_ENV === "production",
+        });
+
+        res.clearCookie("refreshToken", {
+            httpOnly: true,
+            sameSite: "lax",
+            secure: process.env.NODE_ENV === "production",
+        });
+
+        return res.status(200).json({ message: "Logout successful" });
+
+    } catch (error) {
+        console.log("Logout error:", error);
+        return res.status(500).json({ error: "Logout failed" });
+    }
 }
 
 export const refreshAccessToken = async (req, res) => {

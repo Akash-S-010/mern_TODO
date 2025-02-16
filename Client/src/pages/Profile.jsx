@@ -1,12 +1,8 @@
 import React from "react";
 import avatar from "../assets/user-avatar.png";
 import { useNavigate } from "react-router-dom";
-import { useAuthStore } from "../store/useAuthStore";
 
 const Profile = () => {
-
-  const { authUser } = useAuthStore();
-
   const navigate = useNavigate();
   return (
     <div className="profile h-screen bg-slate-700 flex justify-center items-center">
@@ -26,7 +22,7 @@ const Profile = () => {
               User Name
             </label>
             <div className="border w-full px-3 py-2 rounded-md border-2 border-slate-400 font-semibold text-slate-600">
-              {authUser.name}
+              John Doe
             </div>
           </div>
           <div className="input-container w-md">
@@ -34,14 +30,14 @@ const Profile = () => {
               Email
             </label>
             <div className="border w-full px-3 py-2 rounded-md border-2 border-slate-400 font-semibold text-slate-600">
-              {authUser.email}
+              john@gmail.com
             </div>
           </div>
           <div className="account-information mt-8">
             <h1 className="text-xl font-semibold">Account Information</h1>
             <div className="w-full flex justify-between mt-5">
               <p>Member Since</p>
-              <p>{authUser.createdAt}</p>
+              <p>2025-01-01</p>
             </div>
           </div>
           <hr className="my-2 border border-slate-400" />
