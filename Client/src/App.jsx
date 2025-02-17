@@ -6,14 +6,17 @@ import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import {Loader} from "lucide-react"
 import { useAuthStore } from "./store/useAuthStore";
+import { useNavigate } from "react-router-dom";
 
 const App = () => {
 
-  const {authUser, checkAuthUser, isCheckingAuth} = useAuthStore()
+  const {authUser, checkAuthUser, isCheckingAuth} = useAuthStore();
+  const navigate = useNavigate();
 
   useEffect(() => {
     checkAuthUser()
-  }, [checkAuthUser])
+  }, [checkAuthUser]);
+
 
   console.log(authUser)
 

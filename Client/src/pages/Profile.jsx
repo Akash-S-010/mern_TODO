@@ -1,12 +1,16 @@
 import React from "react";
 import avatar from "../assets/user-avatar.png";
 import { useNavigate } from "react-router-dom";
+import { useAuthStore } from "../store/useAuthStore";
 
 const Profile = () => {
+
   const navigate = useNavigate();
+  const {authUser} = useAuthStore();
+  
   return (
-    <div className="profile h-screen bg-slate-700 flex justify-center items-center">
-      <div className="card bg-slate-100 px-10 py-8 rounded">
+    <div className="profile h-screen bg-slate-900 flex justify-center items-center">
+      <div className="card bg-slate-100 px-10 py-8 rounded-lg ">
         <h1 className="text-3xl font-bold text-center">Profile</h1>
         <p className="text-slate-500 text-center">Your profile information</p>
         <div className="w-[100px] h-[100px] mx-auto mt-5">
@@ -22,7 +26,7 @@ const Profile = () => {
               User Name
             </label>
             <div className="border w-full px-3 py-2 rounded-md border-2 border-slate-400 font-semibold text-slate-600">
-              John Doe
+              {authUser?.name}
             </div>
           </div>
           <div className="input-container w-md">
@@ -30,14 +34,14 @@ const Profile = () => {
               Email
             </label>
             <div className="border w-full px-3 py-2 rounded-md border-2 border-slate-400 font-semibold text-slate-600">
-              john@gmail.com
+              {authUser?.email}
             </div>
           </div>
           <div className="account-information mt-8">
             <h1 className="text-xl font-semibold">Account Information</h1>
             <div className="w-full flex justify-between mt-5">
               <p>Member Since</p>
-              <p>2025-01-01</p>
+              <p>{authUser?.createdAt.split("T")[0]}</p>
             </div>
           </div>
           <hr className="my-2 border border-slate-400" />
@@ -61,4 +65,3 @@ const Profile = () => {
 };
 
 export default Profile;
-// onClick={() => navigate("/home")}

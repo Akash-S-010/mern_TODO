@@ -4,6 +4,7 @@ import { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useAuthStore } from "../store/useAuthStore";
+import { Loader } from "lucide-react";
 
 const Signup = () => {
   const { signup, isSigningUp } = useAuthStore();

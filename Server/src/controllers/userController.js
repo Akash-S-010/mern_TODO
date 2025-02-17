@@ -66,25 +66,23 @@ export const login = async (req, res) => {
             return res.status(400).json({ error: "Invalid credentials" });
         }
 
-        const { accessToken, refreshToken } = generateToken(user._id);
+        const accessToken = generateToken(user._id);
 
         // Set tokens in cookies
         res.cookie("accessToken", accessToken, {
             httpOnly: true,
             sameSite: "lax",
             secure: process.env.NODE_ENV !== "development",
-            maxAge: 5 * 60 * 1000
-        });
+            maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days in milliseconds
 
-        res.cookie("refreshToken", refreshToken, {
-            httpOnly: true,
-            sameSite: "none",
-            secure: process.env.NODE_ENV !== "development",
-            maxAge: 7 * 24 * 60 * 60 * 1000
         });
 
         // Send response
-        res.status(200).json({message: "Login successful"});
+        res.status(201).json({
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+          });
 
     } catch (error) {
 
@@ -102,12 +100,6 @@ export const logout = async (req, res) => {
             secure: process.env.NODE_ENV === "production",
         });
 
-        res.clearCookie("refreshToken", {
-            httpOnly: true,
-            sameSite: "lax",
-            secure: process.env.NODE_ENV === "production",
-        });
-
         return res.status(200).json({ message: "Logout successful" });
 
     } catch (error) {
@@ -116,28 +108,3 @@ export const logout = async (req, res) => {
     }
 }
 
-export const refreshAccessToken = async (req, res) => {
-    const refreshToken = req.cookies.refreshToken;
-
-    if (!refreshToken) {
-        return res.status(401).json({ error: "Unauthorized" });
-    }   
-
-    try {
-        const decoded = jwt.verify(refreshToken, process.env.REFRESH_SECRET);
-
-        const accessToken = jwt.sign({ userId: decoded.userId }, process.env.ACCESS_SECRET, { expiresIn: "5m" });
-
-        res.cookie("accessToken", accessToken, {
-            httpOnly: true,
-            sameSite: "none",    
-            secure: process.env.NODE_ENV !== "development",
-            maxAge: 5 * 60 * 1000
-        });
-
-        res.status(200).json({ message: "Access token refreshed successfully" });
-    } catch (error) {
-        console.log("Error in refreshAccessToken:", error.message);
-        res.status(403).json({ error: "Forbidden: Invalid token" });
-    }
-};

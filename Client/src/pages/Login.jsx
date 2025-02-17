@@ -7,7 +7,7 @@ import { useAuthStore } from "../store/useAuthStore";
 import { Loader } from "lucide-react";
 
 const Login = () => {
-  const { login, isLoggingIn } = useAuthStore();
+  const { login, isLoggingIn, checkAuthUser } = useAuthStore();
 
   const {
     register,
@@ -18,8 +18,9 @@ const Login = () => {
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
-    await login(data)
-    navigate("/"); 
+    await login(data);
+    await checkAuthUser(); 
+    navigate("/");
   };
 
   return (
