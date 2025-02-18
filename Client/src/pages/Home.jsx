@@ -71,7 +71,7 @@ const Home = () => {
     <div className="min-h-screen bg-slate-800">
       <Navbar />
       <div className="p-9 flex flex-col items-center">
-        <h1 className="text-white font-semibold text-2xl mb-10 text-center  mt-10">
+        <h1 className="text-white font-semibold text-2xl mb-10 text-center mt-12 underline ">
           Create your task
         </h1>
         <div className="flex gap-1 mb-15">
