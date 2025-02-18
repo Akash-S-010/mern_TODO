@@ -14,7 +14,7 @@ const Navbar = () => {
 
   const navigate = useNavigate();
   return (
-    <header className="flex items-center justify-between px-10 bg-slate-900 py-4">
+    <header className="flex items-center justify-between px-10 bg-slate-900 py-4 fixed">
       <div>
         <h1 className="text-3xl text-white font-bold">ToDo</h1>
       </div>
