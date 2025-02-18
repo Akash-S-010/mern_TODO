@@ -12,7 +12,7 @@ export const useAuthStore = create((set) => ({
 
     checkAuthUser: async () => {
         try {
-            const res = await axios.get("http://localhost:5000/users/checkAuth", {
+            const res = await axios.get("https://mern-todo-4yw0.onrender.com/users/checkAuth", {
                 withCredentials: true, 
             });
     
@@ -31,7 +31,7 @@ export const useAuthStore = create((set) => ({
     login: async (data) => {
         set({ isLoggingIn: true });
         try {
-            const res = await axios.post("http://localhost:5000/users/login", data, {
+            const res = await axios.post("https://mern-todo-4yw0.onrender.com/users/login", data, {
                 withCredentials: true,
             });
 
@@ -49,7 +49,7 @@ export const useAuthStore = create((set) => ({
     signup: async (data) => {
         set({ isSigningUp: true });
         try {
-            const res = await axios.post("http://localhost:5000/users/register", data, {
+            const res = await axios.post("https://mern-todo-4yw0.onrender.com/users/register", data, {
                 withCredentials: true,
             });
 
@@ -66,7 +66,7 @@ export const useAuthStore = create((set) => ({
     logOut: async () => {
         try {
             await axios.post(
-                "http://localhost:5000/users/logout",
+                "https://mern-todo-4yw0.onrender.com/users/logout",
                 {}, // ✅ Empty body
                 { withCredentials: true } // ✅ Ensure cookies are sent
             );

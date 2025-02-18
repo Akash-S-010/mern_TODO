@@ -15,7 +15,7 @@ const Home = () => {
 
   const fetchTasks = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/tasks/getall", {
+      const res = await axios.get("https://mern-todo-4yw0.onrender.com/tasks/getall", {
         withCredentials: true,
       });
       setTasks(res.data.tasks);
@@ -28,7 +28,7 @@ const Home = () => {
     if (!newTask.trim()) return toast.error("Task cannot be empty");
     try {
       const res = await axios.post(
-        "http://localhost:5000/tasks/create",
+        "https://mern-todo-4yw0.onrender.com/tasks/create",
         { task: newTask },
         { withCredentials: true }
       );
@@ -42,7 +42,7 @@ const Home = () => {
 
   const deleteTask = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/tasks/delete/${id}`, {
+      await axios.delete(`https://mern-todo-4yw0.onrender.com/tasks/delete/${id}`, {
         withCredentials: true,
       });
       setTasks(tasks.filter((task) => task._id !== id));
@@ -55,7 +55,7 @@ const Home = () => {
   const saveEditTask = async (id) => {
     try {
       const res = await axios.put(
-        `http://localhost:5000/tasks/update/${id}`,
+        `https://mern-todo-4yw0.onrender.com/tasks/update/${id}`,
         { task: editTaskText },
         { withCredentials: true }
       );
