@@ -6,19 +6,20 @@ export const createTask = async (req, res) => {
 
     try {
 
-        const { task, completed } = req.body
+        const { task } = req.body
 
         if (!task) {
             return res.status(400).json({ error: "Task is required" });
         }
 
-        const newTask = await Task.create({
+        const newTask = new Task({
             task,
-            completed: completed || false,
-            user: req.user.userId
-        })
+            user: req.user._id, 
+          });
+      
+          await newTask.save();
 
-        res.status(201).json({ message: "Task created successfully" });
+        res.status(201).json({ message: "Task created successfully", task: newTask });
 
 
     } catch (error) {
@@ -33,9 +34,8 @@ export const getAllTasks = async (req, res) => {
 
     try {
 
-        const tasks = await Task.find({ user: req.user.userId });
-
-        if (!tasks) {
+        const tasks = await Task.find({ user: req.user._id });
+        if (tasks.length === 0) {
             return res.status(404).json({ error: "No tasks found" });
         }
 
@@ -51,19 +51,19 @@ export const getAllTasks = async (req, res) => {
 export const updateTask = async (req, res) => {
 
     const { id } = req.params;
-    const { task, completed } = req.body;
+    const { task } = req.body;
 
     try {
 
         const taskToUpdate = await Task.findByIdAndUpdate(
             id,
-            { task, completed },
+            { task},
             { new: true }
         );
 
-        if (!taskToUpdate) return res.status(404).json({ message: "Todo not found" });
+        if (!taskToUpdate) return res.status(404).json({ message: "Task not found" });
 
-        res.status(200).json({ message: "Todo updated successfully" });
+        res.status(200).json({ message: "Task updated successfully",task: taskToUpdate });
 
     } catch (error) {
 

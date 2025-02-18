@@ -12,12 +12,10 @@ export const useAuthStore = create((set) => ({
 
     checkAuthUser: async () => {
         try {
-            console.log("Checking auth user...");
             const res = await axios.get("http://localhost:5000/users/checkAuth", {
                 withCredentials: true, 
             });
     
-            console.log("Auth User Response:", res.data); 
     
             set({ authUser: res.data.user });
     
