@@ -16,16 +16,16 @@ export const useAuthStore = create((set) => ({
                 withCredentials: true, 
             });
     
-    
             set({ authUser: res.data.user });
     
         } catch (error) {
-            console.log("Error in checkAuthUser", error.response?.data || error.message);
+            console.error("Error in checkAuthUser:", error.response?.data || error.message);
             set({ authUser: null });
         } finally {
             set({ isCheckingAuth: false });
         }
     },
+    
     
 
     login: async (data) => {
