@@ -90,7 +90,7 @@ const Home = () => {
           </button>
         </div>
 
-        <ul className="w-1/2 sm:w-full md:w-1/2 lg:w-1/2 bg-slate-800 px-4 py-2 rounded-md shadow-xl border-1 border-slate-700 text-white text-xl flex flex-col gap-3">
+        <ul className="w-full sm:w-full md:w-1/2 lg:w-1/2 bg-slate-800 px-4 py-2 rounded-md shadow-xl border border-slate-700 text-white text-xl flex flex-col gap-3">
           {tasks.length === 0 ? (
             <p className="text-gray-500 text-center">No tasks added</p>
           ) : (
